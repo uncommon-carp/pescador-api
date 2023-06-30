@@ -1,0 +1,17 @@
+{
+  "name": "pescador-api",
+  "version": "1.0.0",
+  "description": "Pescador app server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cory Sorel",
+  "license": "MIT",
+  "workspaces": [
+    "packages/service-graph",
+    "packages/interfaces-graph",
+    "packages/interfaces-conditions",
+    "packages/service-conditions"
+  ]
+}
