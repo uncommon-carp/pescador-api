@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/server": "^4.7.5",
+    "@as-integrations/aws-lambda": "^2.0.1",
     "@pescador-api/interfaces-graph": "^1.0.0",
     "graphql": "^16.7.1"
   }
