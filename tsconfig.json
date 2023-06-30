@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "module": "commonjs",
+    "target": "ES2019",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": false,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "./packages/*/src/**/*.ts",
+    "./packages/*/index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
