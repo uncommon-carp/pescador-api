@@ -1,11 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateLambdaHandler, handlers } from '@as-integrations/aws-lambda';
-
-const typeDefs = `
-  type Query {
-    hello: String
-  }
-`;
+import { typeDefs } from './schema/schema';
 
 const resolvers = {
   Query: {
