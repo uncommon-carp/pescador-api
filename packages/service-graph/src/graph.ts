@@ -4,18 +4,13 @@ import {
   handlers,
 } from "@as-integrations/aws-lambda";
 import { typeDefs } from "./schema/schema";
+import { getStationResolver } from "./resolvers";
 
 const resolvers = {
   Query: {
     hello: () => "world",
     user: () => ({ email: "test@test.com", zipCode: 11111 }),
-    station: () => ({
-      name: "Test",
-      usgsId: "01234",
-      lat: 10,
-      lon: 10,
-      values: { flow: { timestamp: "1010101", value: 10 } },
-    }),
+    station: getStationResolver,
   },
 };
 
