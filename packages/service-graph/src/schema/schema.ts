@@ -2,14 +2,14 @@ export const typeDefs = `
   type Query {
     hello: String
     user: User
-    station: Station
+    station(id: String!): Station
   }
   
   type Station {
     name: String!
     usgsId: String!
-    lat: Int
-    lon: Int
+    lat: Float
+    lon: Float
     values: ReportedValues
   }
 
@@ -22,7 +22,7 @@ export const typeDefs = `
 
   type DataFrame {
     timestamp: String!
-    value: Int!
+    value: Float!
   }
 
   type User {
