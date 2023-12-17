@@ -1,8 +1,10 @@
+import { Station } from "@pescador-api/interfaces-conditions";
+
 export const getStationResolver = (
   _parent: any,
   input: { id: string },
   _context: any,
-) => {
+): Station => {
   const { id } = input;
   return {
     name: "Test",
