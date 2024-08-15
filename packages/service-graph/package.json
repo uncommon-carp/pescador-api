@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run build:codegen",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:codegen": "graphql-codegen --config ./generator.ts"
+    "generateSchema": "npx ts-node ./src/schema/generateSchema.ts",
+    "build:codegen": "graphql-codegen --config ./generator.ts && npm run generateSchema"
   },
   "keywords": [],
   "author": "",
