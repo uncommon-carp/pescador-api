@@ -2,9 +2,11 @@
   "name": "@pescador-api/service-graph",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:codegen",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generateSchema": "npx ts-node ./src/schema/generateSchema.ts",
+    "build:codegen": "graphql-codegen --config ./generator.ts && npm run generateSchema"
   },
   "keywords": [],
   "author": "",
@@ -12,8 +14,14 @@
   "dependencies": {
     "@apollo/server": "^4.7.5",
     "@as-integrations/aws-lambda": "^2.0.1",
-    "@pescador-api/interfaces-graph": "^1.0.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
+    "@graphql-codegen/typescript-resolvers": "^4.2.1",
+    "@graphql-tools/schema": "^10.0.5",
     "@pescador-api/interfaces-conditions": "^1.0.0",
-    "graphql": "^16.7.1"
+    "@pescador-api/interfaces-graph": "^1.0.0",
+    "graphql": "^16.7.1",
+    "graphql-tag": "^2.12.6"
   }
 }

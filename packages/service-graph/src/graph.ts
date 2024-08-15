@@ -3,22 +3,17 @@ import {
   startServerAndCreateLambdaHandler,
   handlers,
 } from "@as-integrations/aws-lambda";
-import { typeDefs } from "./schema/schema";
-import { getStationResolver } from "./resolvers";
-import { getWeatherResolver } from "./resolvers/weather";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { getResolvers } from "./resolvers";
 
-const resolvers = {
-  Query: {
-    hello: () => "world",
-    user: () => ({ email: "test@test.com", zipCode: 11111 }),
-    station: getStationResolver,
-    weather: getWeatherResolver,
-  },
-};
+import { typeDefs } from "./schema/schema.generated";
+
+const resolvers = getResolvers();
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   introspection: true,
 });
 
