@@ -22,6 +22,7 @@
     "@graphql-tools/schema": "^10.0.5",
     "@pescador-api/interfaces-conditions": "^1.0.0",
     "@pescador-api/interfaces-graph": "^1.0.0",
+    "@pescador-api/util-conditions": "^1.0.0",
     "graphql": "^16.7.1",
     "graphql-tag": "^2.12.6"
   }
