@@ -2,9 +2,10 @@
   "name": "@pescador-api/service-graph",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:codegen",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:codegen": "graphql-codegen --config ./generator.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,9 +16,11 @@
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/typescript": "^4.0.9",
     "@graphql-codegen/typescript-operations": "^4.2.3",
+    "@graphql-codegen/typescript-resolvers": "^4.2.1",
     "@graphql-tools/schema": "^10.0.5",
     "@pescador-api/interfaces-conditions": "^1.0.0",
     "@pescador-api/interfaces-graph": "^1.0.0",
-    "graphql": "^16.7.1"
+    "graphql": "^16.7.1",
+    "graphql-tag": "^2.12.6"
   }
 }
