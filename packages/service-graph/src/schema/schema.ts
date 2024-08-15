@@ -24,6 +24,20 @@ export const typeDefs = `
     timestamp: String!
     value: Float!
   }
+  
+  type CurrentWeather {
+    temp: Float!
+    wind: WindData!
+    pressure: Float!
+    humidity: Float!
+    clouds: String!
+  }
+
+  type WindData {
+    speed: Float!
+    direction: Float!
+    gust: Float!
+  }
 
   type User {
     email: String!
