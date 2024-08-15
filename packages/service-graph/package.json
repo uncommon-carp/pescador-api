@@ -12,8 +12,12 @@
   "dependencies": {
     "@apollo/server": "^4.7.5",
     "@as-integrations/aws-lambda": "^2.0.1",
-    "@pescador-api/interfaces-graph": "^1.0.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
+    "@graphql-tools/schema": "^10.0.5",
     "@pescador-api/interfaces-conditions": "^1.0.0",
+    "@pescador-api/interfaces-graph": "^1.0.0",
     "graphql": "^16.7.1"
   }
 }
