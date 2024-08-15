@@ -3,6 +3,7 @@ export const typeDefs = `
     hello: String
     user: User
     station(id: String!): Station
+    weather(zip: Float!): CurrentWeather
   }
   
   type Station {
@@ -27,16 +28,16 @@ export const typeDefs = `
   
   type CurrentWeather {
     temp: Float!
-    wind: WindData!
+    wind: WindData
     pressure: Float!
     humidity: Float!
     clouds: String!
   }
 
   type WindData {
-    speed: Float!
-    direction: Float!
-    gust: Float!
+    speed: Float
+    direction: Float
+    gust: Float
   }
 
   type User {

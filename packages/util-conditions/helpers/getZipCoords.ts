@@ -1,16 +1,11 @@
 import axios from "axios";
 
-interface CoordResult {
-  lat: number | string;
-  lng: number | string;
-}
-
 export async function getZipCoords(postalCode: number) {
   const key = process.env.MAPQUEST_API_KEY;
   const params = { key, postalCode };
   try {
     const response = await axios.get(
-      "http://www.mapquest.com/geocoding/v1/address",
+      "http://www.mapquestapi.com/geocoding/v1/address",
       { params },
     );
     return {

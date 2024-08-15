@@ -13,7 +13,7 @@ export async function getWeatherResolver(
       direction: result.current.wind_deg,
       gust: result.current.wind_gust,
     },
-    pressure: result.currrent.pressure,
+    pressure: result.current.pressure,
     humidity: result.current.humidity,
     clouds: "mostly cloudy",
   };
