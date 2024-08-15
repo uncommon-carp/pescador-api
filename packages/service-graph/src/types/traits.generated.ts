@@ -47,7 +47,7 @@ export type QueryStationArgs = {
 
 
 export type QueryWeatherArgs = {
-  zip: Scalars['Float']['input'];
+  zip: Scalars['String']['input'];
 };
 
 export type ReportedValues = {

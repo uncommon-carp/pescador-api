@@ -7,7 +7,7 @@ import { printSchema } from "graphql";
 const schemaTemplate = readFileSync(join(__dirname, "./schemaTemplate.ts"), {
   encoding: "utf8",
 });
-const typeDefs = readFileSync(join(__dirname, "./schema.gql"), {
+const typeDefs = readFileSync(join(__dirname, "./refSchema.gql"), {
   encoding: "utf8",
 });
 

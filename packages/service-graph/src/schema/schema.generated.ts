@@ -5,7 +5,7 @@ type Query {
   hello: String
   user: User
   station(id: String!): Station
-  weather(zip: Float!): CurrentWeather
+  weather(zip: String!): CurrentWeather
 }
 
 type Station {
