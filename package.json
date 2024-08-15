@@ -4,6 +4,7 @@
   "description": "Pescador app server",
   "main": "index.js",
   "scripts": {
+    "deploy": "npm run -w @pescador-api/service-graph buildAndDeploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cory Sorel",

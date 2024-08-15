@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "buildAndDeploy": "npm run build && sls deploy",
     "build": "npm run build:codegen",
     "test": "echo \"Error: no test specified\" && exit 1",
     "generateSchema": "npx ts-node ./src/schema/generateSchema.ts",
