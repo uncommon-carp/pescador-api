@@ -2,7 +2,7 @@ import { requestWeatherByZip } from "../../../util-conditions";
 
 export async function getWeatherResolver(
   _parent: any,
-  input: { zip: number },
+  input: { zip: string },
   _context: any,
 ) {
   const result = await requestWeatherByZip(input.zip);

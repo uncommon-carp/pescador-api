@@ -3,7 +3,7 @@ import { getZipCoords } from "../helpers/getZipCoords";
 
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 
-export async function requestWeatherByZip(zip: number) {
+export async function requestWeatherByZip(zip: string) {
   const result = await getZipCoords(zip);
   if (typeof result === "string") {
     return result;
