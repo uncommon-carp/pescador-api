@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function getZipCoords(postalCode: number) {
+export async function getZipCoords(postalCode: string) {
   const key = process.env.MAPQUEST_API_KEY;
   const params = { key, postalCode };
   try {
