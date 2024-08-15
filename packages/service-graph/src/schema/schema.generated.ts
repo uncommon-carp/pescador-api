@@ -1,5 +1,7 @@
 export const typeDefs = `#graphql
-  type Query {
+  scalar DateTime
+
+type Query {
   hello: String
   user: User
   station(id: String!): Station

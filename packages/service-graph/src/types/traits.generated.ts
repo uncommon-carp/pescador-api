@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: string; output: Date; }
 };
 
 export type CurrentWeather = {
@@ -153,6 +154,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CurrentWeather: ResolverTypeWrapper<CurrentWeather>;
   DataFrame: ResolverTypeWrapper<DataFrame>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Query: ResolverTypeWrapper<{}>;
@@ -168,6 +170,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   CurrentWeather: CurrentWeather;
   DataFrame: DataFrame;
+  DateTime: Scalars['DateTime']['output'];
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
   Query: {};
@@ -192,6 +195,10 @@ export type DataFrameResolvers<ContextType = any, ParentType extends ResolversPa
   value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -233,6 +240,7 @@ export type WindDataResolvers<ContextType = any, ParentType extends ResolversPar
 export type Resolvers<ContextType = any> = {
   CurrentWeather?: CurrentWeatherResolvers<ContextType>;
   DataFrame?: DataFrameResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   ReportedValues?: ReportedValuesResolvers<ContextType>;
   Station?: StationResolvers<ContextType>;
