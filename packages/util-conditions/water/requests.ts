@@ -1,4 +1,5 @@
 import axios from "axios";
+import { InternalServerError } from "@pescador-api/util-errors";
 import stationSort from "../helpers/stationSort";
 import {
   BulkStationQueryInput,
@@ -30,7 +31,6 @@ export async function requestStationById(
       params,
     });
 
-    console.log(resp.data.value.timeSeries[0].values);
     return {
       name: resp.data.value.timeSeries[0].sourceInfo.siteName,
       usgsId: resp.data.value.timeSeries[0].sourceInfo.siteCode[0].value,
@@ -46,7 +46,7 @@ export async function requestStationById(
     };
   } catch (err) {
     console.log(err);
-    throw new Error("Oops, something went wrong");
+    throw new InternalServerError("41f675c9-da49-4986-b668-0d2b1e9b0c50");
   }
 }
 
