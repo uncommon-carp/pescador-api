@@ -4,7 +4,7 @@ export const typeDefs = `#graphql
 type Query {
   hello: String
   user: User
-  station(id: String!): Station
+  station(id: String!, range: Int!): Station
   weather(zip: String!): CurrentWeather
 }
 
@@ -17,15 +17,15 @@ type Station {
 }
 
 type ReportedValues {
-  flow: DataFrame
-  gage: DataFrame
-  height: DataFrame
-  temp: DataFrame
+  flow: [DataFrame]
+  gage: [DataFrame]
+  height: [DataFrame]
+  temp: [DataFrame]
 }
 
 type DataFrame {
-  timestamp: String!
-  value: Float!
+  timestamp: String
+  value: Float
 }
 
 type CurrentWeather {

@@ -9,7 +9,7 @@ import {
 function streamSort(data: TimeSerial[]) {
   // This is the data format we want on the client
   const sorted: ReportedValues = {
-    gageHt: [],
+    gage: [],
     flow: [],
   };
   // We want to limit the data arrays to 30ish points for 3 days of data
@@ -25,8 +25,8 @@ function streamSort(data: TimeSerial[]) {
         };
         if (obj.variable.variableCode[0].value === "00060") {
           sorted.flow!.push(newObject);
-        } else {
-          sorted.gageHt!.push(newObject);
+        } else if (obj.variable.variableCode[0].value === "00065") {
+          sorted.gage!.push(newObject);
         }
       }
     });
@@ -37,7 +37,7 @@ function streamSort(data: TimeSerial[]) {
 
 function lakeSort(data: TimeSerial[]): ReportedValues {
   const sorted: ReportedValues = {
-    gageHt: [],
+    gage: [],
   };
 
   let interval = Math.floor(data[0].values[0].value.length / 30);
@@ -45,7 +45,7 @@ function lakeSort(data: TimeSerial[]): ReportedValues {
   data[0].values[0].value.forEach((value, i) => {
     if (i === 0 || i % interval === 0) {
       let newObject = { timestamp: value.dateTime, value: Number(value.value) };
-      sorted.gageHt!.push(newObject);
+      sorted.gage!.push(newObject);
     }
   });
   return sorted;

@@ -1,6 +1,6 @@
 export interface Station {
   name: string;
-  id: string;
+  usgsId: string;
   lat: number;
   lon: number;
   values: ReportedValues;
@@ -8,7 +8,7 @@ export interface Station {
 
 export interface ReportedValues {
   flow?: DataFrame[];
-  gageHt?: DataFrame[];
+  gage?: DataFrame[];
 }
 
 export interface DataFrame {
@@ -17,6 +17,6 @@ export interface DataFrame {
 }
 
 export interface StationQueryInput {
-  site: string;
+  id: string;
   range: number;
 }

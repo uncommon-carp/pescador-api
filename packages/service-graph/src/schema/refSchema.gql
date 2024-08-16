@@ -16,15 +16,15 @@ type Station {
 }
 
 type ReportedValues {
-  flow: DataFrame
-  gage: DataFrame
-  height: DataFrame
-  temp: DataFrame
+  flow: [DataFrame]
+  gage: [DataFrame]
+  height: [DataFrame]
+  temp: [DataFrame]
 }
 
 type DataFrame {
-  timestamp: String!
-  value: Float!
+  timestamp: String
+  value: Float
 }
 
 type CurrentWeather {
