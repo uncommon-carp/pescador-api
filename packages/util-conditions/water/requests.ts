@@ -2,7 +2,7 @@ import axios from "axios";
 import stationSort from "../helpers/stationSort";
 import {
   BulkStationQueryInput,
-  Station,
+  BulkStationQueryResult,
   StationQueryInput,
   StationWithRange,
   UsgsResponse,
@@ -52,21 +52,24 @@ export async function requestStationById(
 
 export async function requestStationsByBounding(
   input: BulkStationQueryInput,
-): Promise<Station[]> {
+): Promise<BulkStationQueryResult> {
   const { zip } = input;
   const { lat, lng } = await getZipCoords(zip);
-  const { north, west, east, south } = getBoundingBox(lat, lng);
+  const { west, north, south, east } = getBoundingBox(lat, lng);
   const params = {
     format: "JSON",
-    west,
-    north,
-    south,
-    east,
+    bBox: `${west},${south},${east},${north}`,
+    siteStatus: "active",
+    siteType: "LK,ST",
   };
-  const response = await axios<UsgsResponse>({
-    method: "get",
-    url,
-    params,
-  });
-  return siteReducer(response.data.value.timeSeries);
+  try {
+    const response = await axios<UsgsResponse>({
+      method: "get",
+      url,
+      params,
+    });
+    return siteReducer(response.data.value.timeSeries);
+  } catch (err) {
+    throw new Error(`${err.message}`);
+  }
 }

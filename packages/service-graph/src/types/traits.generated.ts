@@ -17,6 +17,12 @@ export type Scalars = {
   DateTime: { input: string; output: Date; }
 };
 
+export type BulkStation = {
+  __typename: 'BulkStation';
+  lakes?: Maybe<Array<Maybe<SingleStation>>>;
+  streams?: Maybe<Array<Maybe<SingleStation>>>;
+};
+
 export type CurrentWeather = {
   __typename: 'CurrentWeather';
   clouds: Scalars['String']['output'];
@@ -34,10 +40,16 @@ export type DataFrame = {
 
 export type Query = {
   __typename: 'Query';
+  bulkStation?: Maybe<BulkStation>;
   hello?: Maybe<Scalars['String']['output']>;
-  station?: Maybe<Station>;
+  station?: Maybe<StationWithRange>;
   user?: Maybe<User>;
   weather?: Maybe<CurrentWeather>;
+};
+
+
+export type QueryBulkStationArgs = {
+  zip: Scalars['String']['input'];
 };
 
 
@@ -59,8 +71,25 @@ export type ReportedValues = {
   temp?: Maybe<Array<Maybe<DataFrame>>>;
 };
 
+export type SingleStation = Station & {
+  __typename: 'SingleStation';
+  flow?: Maybe<Scalars['Float']['output']>;
+  gageHt?: Maybe<Scalars['Float']['output']>;
+  lat?: Maybe<Scalars['Float']['output']>;
+  lon?: Maybe<Scalars['Float']['output']>;
+  name: Scalars['String']['output'];
+  usgsId: Scalars['String']['output'];
+};
+
 export type Station = {
-  __typename: 'Station';
+  lat?: Maybe<Scalars['Float']['output']>;
+  lon?: Maybe<Scalars['Float']['output']>;
+  name: Scalars['String']['output'];
+  usgsId: Scalars['String']['output'];
+};
+
+export type StationWithRange = Station & {
+  __typename: 'StationWithRange';
   lat?: Maybe<Scalars['Float']['output']>;
   lon?: Maybe<Scalars['Float']['output']>;
   name: Scalars['String']['output'];
@@ -149,10 +178,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 
+/** Mapping of interface types */
+export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
+  Station: ( SingleStation ) | ( StationWithRange );
+};
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  BulkStation: ResolverTypeWrapper<BulkStation>;
   CurrentWeather: ResolverTypeWrapper<CurrentWeather>;
   DataFrame: ResolverTypeWrapper<DataFrame>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
@@ -160,7 +194,9 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Query: ResolverTypeWrapper<{}>;
   ReportedValues: ResolverTypeWrapper<ReportedValues>;
-  Station: ResolverTypeWrapper<Station>;
+  SingleStation: ResolverTypeWrapper<SingleStation>;
+  Station: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Station']>;
+  StationWithRange: ResolverTypeWrapper<StationWithRange>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
   WindData: ResolverTypeWrapper<WindData>;
@@ -169,6 +205,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  BulkStation: BulkStation;
   CurrentWeather: CurrentWeather;
   DataFrame: DataFrame;
   DateTime: Scalars['DateTime']['output'];
@@ -176,10 +213,18 @@ export type ResolversParentTypes = {
   Int: Scalars['Int']['output'];
   Query: {};
   ReportedValues: ReportedValues;
-  Station: Station;
+  SingleStation: SingleStation;
+  Station: ResolversInterfaceTypes<ResolversParentTypes>['Station'];
+  StationWithRange: StationWithRange;
   String: Scalars['String']['output'];
   User: User;
   WindData: WindData;
+};
+
+export type BulkStationResolvers<ContextType = any, ParentType extends ResolversParentTypes['BulkStation'] = ResolversParentTypes['BulkStation']> = {
+  lakes?: Resolver<Maybe<Array<Maybe<ResolversTypes['SingleStation']>>>, ParentType, ContextType>;
+  streams?: Resolver<Maybe<Array<Maybe<ResolversTypes['SingleStation']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CurrentWeatherResolvers<ContextType = any, ParentType extends ResolversParentTypes['CurrentWeather'] = ResolversParentTypes['CurrentWeather']> = {
@@ -202,8 +247,9 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  bulkStation?: Resolver<Maybe<ResolversTypes['BulkStation']>, ParentType, ContextType, RequireFields<QueryBulkStationArgs, 'zip'>>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  station?: Resolver<Maybe<ResolversTypes['Station']>, ParentType, ContextType, RequireFields<QueryStationArgs, 'id' | 'range'>>;
+  station?: Resolver<Maybe<ResolversTypes['StationWithRange']>, ParentType, ContextType, RequireFields<QueryStationArgs, 'id' | 'range'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   weather?: Resolver<Maybe<ResolversTypes['CurrentWeather']>, ParentType, ContextType, RequireFields<QueryWeatherArgs, 'zip'>>;
 };
@@ -216,7 +262,25 @@ export type ReportedValuesResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SingleStationResolvers<ContextType = any, ParentType extends ResolversParentTypes['SingleStation'] = ResolversParentTypes['SingleStation']> = {
+  flow?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  gageHt?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  usgsId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type StationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Station'] = ResolversParentTypes['Station']> = {
+  __resolveType: TypeResolveFn<'SingleStation' | 'StationWithRange', ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  usgsId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type StationWithRangeResolvers<ContextType = any, ParentType extends ResolversParentTypes['StationWithRange'] = ResolversParentTypes['StationWithRange']> = {
   lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -239,12 +303,15 @@ export type WindDataResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type Resolvers<ContextType = any> = {
+  BulkStation?: BulkStationResolvers<ContextType>;
   CurrentWeather?: CurrentWeatherResolvers<ContextType>;
   DataFrame?: DataFrameResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   ReportedValues?: ReportedValuesResolvers<ContextType>;
+  SingleStation?: SingleStationResolvers<ContextType>;
   Station?: StationResolvers<ContextType>;
+  StationWithRange?: StationWithRangeResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   WindData?: WindDataResolvers<ContextType>;
 };

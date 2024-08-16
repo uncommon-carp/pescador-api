@@ -19,8 +19,8 @@ function decimalTrim(num: number) {
 export function getBoundingBox(lat: string | number, long: string | number) {
   return {
     west: decimalTrim(+long - 0.2),
-    east: decimalTrim(+long + 0.2),
     north: decimalTrim(+lat + 0.2),
     south: decimalTrim(+lat - 0.2),
+    east: decimalTrim(+long + 0.2),
   };
 }
