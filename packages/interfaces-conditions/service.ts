@@ -1,13 +1,14 @@
 export interface Station {
   name: string;
-  usgsId: string;
+  id: string;
   lat: number;
   lon: number;
   values: ReportedValues;
 }
 
 export interface ReportedValues {
-  flow: DataFrame;
+  flow?: DataFrame[];
+  gageHt?: DataFrame[];
 }
 
 export interface DataFrame {
