@@ -30,7 +30,7 @@ type SingleStation implements Station {
   lat: Float
   lon: Float
   gageHt: Float
-  flow: Float
+  flowRate: Float
 }
 
 type BulkStation {

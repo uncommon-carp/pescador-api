@@ -59,6 +59,7 @@ export async function requestStationsByBounding(
   const params = {
     format: "JSON",
     bBox: `${west},${south},${east},${north}`,
+    parameterCd: "00060,00065",
     siteStatus: "active",
     siteType: "LK,ST",
   };

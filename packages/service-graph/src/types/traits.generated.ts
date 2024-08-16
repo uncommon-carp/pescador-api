@@ -73,7 +73,7 @@ export type ReportedValues = {
 
 export type SingleStation = Station & {
   __typename: 'SingleStation';
-  flow?: Maybe<Scalars['Float']['output']>;
+  flowRate?: Maybe<Scalars['Float']['output']>;
   gageHt?: Maybe<Scalars['Float']['output']>;
   lat?: Maybe<Scalars['Float']['output']>;
   lon?: Maybe<Scalars['Float']['output']>;
@@ -263,7 +263,7 @@ export type ReportedValuesResolvers<ContextType = any, ParentType extends Resolv
 };
 
 export type SingleStationResolvers<ContextType = any, ParentType extends ResolversParentTypes['SingleStation'] = ResolversParentTypes['SingleStation']> = {
-  flow?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  flowRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   gageHt?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
