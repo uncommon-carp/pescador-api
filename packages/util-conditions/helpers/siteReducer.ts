@@ -2,21 +2,15 @@
 // after the user searches for all sites within a bounding box. It's aim is to normalize and simplify the data
 // the client receives.
 
-type Site = {
-  name: string;
-  usgsId: string;
-  lat: string;
-  lon: string;
-  gageHt?: number;
-};
+import {
+  LakeStation,
+  StreamStation,
+  TimeSerial,
+} from "@pescador-api/interfaces-conditions";
 
-type StreamSite = Site & {
-  flowRate?: number;
-};
-
-export default function siteReducer(data) {
-  const lakes: Site[] = [];
-  const streams: StreamSite[] = [];
+export function siteReducer(data: TimeSerial[]) {
+  const lakes: LakeStation[] = [];
+  const streams: StreamStation[] = [];
 
   data.forEach((site) => {
     const { siteName, siteCode, geoLocation } = site.sourceInfo;
@@ -27,19 +21,19 @@ export default function siteReducer(data) {
     const siteData = {
       name: siteName,
       usgsId,
-      lat: latitude,
-      lon: longitude,
+      lat: String(latitude),
+      lon: String(longitude),
     };
 
     if (site.sourceInfo.siteProperty[0].value === "LK") {
-      lakes.push({ ...siteData, gageHt: gageHtOrFlowRate });
+      lakes.push({ ...siteData, gageHt: Number(gageHtOrFlowRate) });
     } else {
       const isGageHeight = site.variable.variableName[0] === "G";
       const key = isGageHeight ? "gageHt" : "flowRate";
       let existingStream = streams.find((stream) => stream.name === siteName);
 
       if (existingStream) {
-        existingStream[key] = gageHtOrFlowRate;
+        existingStream[key] = Number(gageHtOrFlowRate);
       } else {
         streams.push({ ...siteData, [key]: gageHtOrFlowRate });
       }

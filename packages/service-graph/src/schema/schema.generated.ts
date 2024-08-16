@@ -4,16 +4,38 @@ export const typeDefs = `#graphql
 type Query {
   hello: String
   user: User
-  station(id: String!, range: Int!): Station
+  station(id: String!, range: Int!): StationWithRange
+  bulkStation(zip: String!): BulkStation
   weather(zip: String!): CurrentWeather
 }
 
-type Station {
+interface Station {
+  name: String!
+  usgsId: String!
+  lat: Float
+  lon: Float
+}
+
+type StationWithRange implements Station {
   name: String!
   usgsId: String!
   lat: Float
   lon: Float
   values: ReportedValues
+}
+
+type SingleStation implements Station {
+  name: String!
+  usgsId: String!
+  lat: Float
+  lon: Float
+  gageHt: Float
+  flowRate: Float
+}
+
+type BulkStation {
+  streams: [SingleStation]
+  lakes: [SingleStation]
 }
 
 type ReportedValues {

@@ -1,4 +1,4 @@
-import { getStationResolver } from "./station";
+import { getBulkStationQuery, getStationResolver } from "./station";
 import { getWeatherResolver } from "./weather";
 
 export function getResolvers() {
@@ -7,6 +7,7 @@ export function getResolvers() {
       hello: () => "world",
       user: () => ({ email: "test@test.com", zipCode: 11111 }),
       station: getStationResolver,
+      bulkStation: getBulkStationQuery,
       weather: getWeatherResolver,
     },
   };

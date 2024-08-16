@@ -21,6 +21,7 @@ export interface UsgsValue {
 
 export interface UsgsVariableField {
   variableCode: UsgsVariable[];
+  variableName: string;
 }
 
 export interface UsgsVariable {
