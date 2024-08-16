@@ -28,8 +28,8 @@ export type CurrentWeather = {
 
 export type DataFrame = {
   __typename: 'DataFrame';
-  timestamp: Scalars['String']['output'];
-  value: Scalars['Float']['output'];
+  timestamp?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['Float']['output']>;
 };
 
 export type Query = {
@@ -43,6 +43,7 @@ export type Query = {
 
 export type QueryStationArgs = {
   id: Scalars['String']['input'];
+  range: Scalars['Int']['input'];
 };
 
 
@@ -52,10 +53,10 @@ export type QueryWeatherArgs = {
 
 export type ReportedValues = {
   __typename: 'ReportedValues';
-  flow?: Maybe<DataFrame>;
-  gage?: Maybe<DataFrame>;
-  height?: Maybe<DataFrame>;
-  temp?: Maybe<DataFrame>;
+  flow?: Maybe<Array<Maybe<DataFrame>>>;
+  gage?: Maybe<Array<Maybe<DataFrame>>>;
+  height?: Maybe<Array<Maybe<DataFrame>>>;
+  temp?: Maybe<Array<Maybe<DataFrame>>>;
 };
 
 export type Station = {
@@ -191,8 +192,8 @@ export type CurrentWeatherResolvers<ContextType = any, ParentType extends Resolv
 };
 
 export type DataFrameResolvers<ContextType = any, ParentType extends ResolversParentTypes['DataFrame'] = ResolversParentTypes['DataFrame']> = {
-  timestamp?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -202,16 +203,16 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  station?: Resolver<Maybe<ResolversTypes['Station']>, ParentType, ContextType, RequireFields<QueryStationArgs, 'id'>>;
+  station?: Resolver<Maybe<ResolversTypes['Station']>, ParentType, ContextType, RequireFields<QueryStationArgs, 'id' | 'range'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   weather?: Resolver<Maybe<ResolversTypes['CurrentWeather']>, ParentType, ContextType, RequireFields<QueryWeatherArgs, 'zip'>>;
 };
 
 export type ReportedValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReportedValues'] = ResolversParentTypes['ReportedValues']> = {
-  flow?: Resolver<Maybe<ResolversTypes['DataFrame']>, ParentType, ContextType>;
-  gage?: Resolver<Maybe<ResolversTypes['DataFrame']>, ParentType, ContextType>;
-  height?: Resolver<Maybe<ResolversTypes['DataFrame']>, ParentType, ContextType>;
-  temp?: Resolver<Maybe<ResolversTypes['DataFrame']>, ParentType, ContextType>;
+  flow?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
+  gage?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
+  height?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
+  temp?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

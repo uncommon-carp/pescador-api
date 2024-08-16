@@ -7,10 +7,16 @@ export interface Station {
 }
 
 export interface ReportedValues {
-  flow: DataFrame;
+  flow?: DataFrame[];
+  gage?: DataFrame[];
 }
 
 export interface DataFrame {
   timestamp: string;
   value: number;
+}
+
+export interface StationQueryInput {
+  id: string;
+  range: number;
 }
