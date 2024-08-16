@@ -1,9 +1,19 @@
 export interface Station {
   name: string;
   usgsId: string;
-  lat: number;
-  lon: number;
+  lat: string;
+  lon: string;
+}
+
+export interface StationWithRange extends Station {
   values: ReportedValues;
+}
+
+export interface LakeStation extends Station {
+  gageHt?: number;
+}
+export interface StreamStation extends LakeStation {
+  flowRate?: number;
 }
 
 export interface ReportedValues {
@@ -19,4 +29,13 @@ export interface DataFrame {
 export interface StationQueryInput {
   id: string;
   range: number;
+}
+
+export interface BulkStationQueryInput {
+  zip: string;
+}
+
+export interface BulkStationQueryResult {
+  streams: StreamStation[];
+  lakes: LakeStation[];
 }

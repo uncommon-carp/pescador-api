@@ -7,7 +7,7 @@
 
 // USGS takes coords in order of west, north, south, east
 
-function decimalTrim(num) {
+function decimalTrim(num: number) {
   if (num.toString().split(".")[1].length > 7) {
     let [left, right] = num.toString().split(".");
     return left.concat(".", right.slice(0, 6));
@@ -16,11 +16,11 @@ function decimalTrim(num) {
   }
 }
 
-export default function getBoundingBox(lat, long) {
+export function getBoundingBox(lat: string | number, long: string | number) {
   return {
-    west: decimalTrim(long - 0.2),
+    west: decimalTrim(+long - 0.2),
     east: decimalTrim(+long + 0.2),
     north: decimalTrim(+lat + 0.2),
-    south: decimalTrim(lat - 0.2),
+    south: decimalTrim(+lat - 0.2),
   };
 }
