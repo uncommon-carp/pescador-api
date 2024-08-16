@@ -1,18 +1,12 @@
-import { DataFrame, ReportedValues } from "@pescador-api/interfaces-conditions";
+import {
+  ReportedValues,
+  TimeSerial,
+} from "@pescador-api/interfaces-conditions";
 // Functionality for sorting and paring down USGS site requests time series
 // The data received for each type of site is different dependent on whether it is
 // is a stream or lake.
 
-interface SortedStream {
-  gageHeight: DataFrame[];
-  flowRate: DataFrame[];
-}
-
-interface SortedLake {
-  level: DataFrame[];
-}
-
-function streamSort(data) {
+function streamSort(data: TimeSerial[]) {
   // This is the data format we want on the client
   const sorted: ReportedValues = {
     gageHt: [],
@@ -41,7 +35,7 @@ function streamSort(data) {
   return sorted;
 }
 
-function lakeSort(data) {
+function lakeSort(data: TimeSerial[]): ReportedValues {
   const sorted: ReportedValues = {
     gageHt: [],
   };
@@ -57,7 +51,7 @@ function lakeSort(data) {
   return sorted;
 }
 
-export default function stationSort(data) {
+export default function stationSort(data: TimeSerial[]): ReportedValues {
   if (data[0].sourceInfo.siteProperty[0].value === "ST") {
     return streamSort(data);
   } else {

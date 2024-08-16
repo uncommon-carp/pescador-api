@@ -3,6 +3,7 @@ import stationSort from "../helpers/stationSort";
 import {
   Station,
   StationQueryInput,
+  UsgsResponse,
 } from "@pescador-api/interfaces-conditions";
 
 const url = "http://waterservices.usgs.gov/nwis/iv";
@@ -19,7 +20,7 @@ export async function requestStationById(
   };
 
   try {
-    const resp = await axios({
+    const resp = await axios<UsgsResponse>({
       method: "get",
       url,
       params,
