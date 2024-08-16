@@ -14,7 +14,8 @@
     "packages/interfaces-graph",
     "packages/interfaces-conditions",
     "packages/service-conditions",
-    "packages/util-conditions"
+    "packages/util-conditions",
+    "packages/util-errors"
   ],
   "dependencies": {
     "aws-sdk": "^2.1408.0"
