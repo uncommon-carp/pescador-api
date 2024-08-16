@@ -1,16 +1,14 @@
-import { Station } from "@pescador-api/interfaces-conditions";
+import {
+  Station,
+  StationQueryInput,
+} from "@pescador-api/interfaces-conditions";
+import { requestStationById } from "@pescador-api/util-conditions";
 
-export const getStationResolver = (
+export async function getStationResolver(
   _parent: any,
-  input: { id: string },
+  input: StationQueryInput,
   _context: any,
-): Station => {
-  const { id } = input;
-  return {
-    name: "Test",
-    usgsId: id,
-    lat: 10,
-    lon: 10,
-    values: { flow: { timestamp: "111010", value: 10 } },
-  };
-};
+): Promise<Station> {
+  const resp = await requestStationById(input);
+  return resp;
+}

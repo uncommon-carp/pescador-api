@@ -15,3 +15,8 @@ export interface DataFrame {
   timestamp: string;
   value: number;
 }
+
+export interface StationQueryInput {
+  site: string;
+  range: number;
+}

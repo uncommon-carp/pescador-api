@@ -1,11 +1,9 @@
 import axios from "axios";
 import stationSort from "../helpers/stationSort";
-import { Station } from "@pescador-api/interfaces-conditions";
-
-interface StationQueryInput {
-  site: string;
-  range: number;
-}
+import {
+  Station,
+  StationQueryInput,
+} from "@pescador-api/interfaces-conditions";
 
 const url = "http://waterservices.usgs.gov/nwis/iv";
 
@@ -20,19 +18,24 @@ export async function requestStationById(
     period: `P${range}D`,
   };
 
-  const resp = await axios({
-    method: "get",
-    url,
-    params,
-  });
+  try {
+    const resp = await axios({
+      method: "get",
+      url,
+      params,
+    });
 
-  return {
-    name: resp.data.value.timeSeries[0].sourceInfo.siteName,
-    id: resp.data.value.timeSeries[0].sourceInfo.siteCode[0].value,
-    lat: resp.data.value.timeSeries[0].sourceInfo.geoLocation.geogLocation
-      .latitude,
-    lon: resp.data.value.timeSeries[0].sourceInfo.geoLocation.geogLocation
-      .longitude,
-    values: stationSort(resp.data.value.timeSeries),
-  };
+    return {
+      name: resp.data.value.timeSeries[0].sourceInfo.siteName,
+      id: resp.data.value.timeSeries[0].sourceInfo.siteCode[0].value,
+      lat: resp.data.value.timeSeries[0].sourceInfo.geoLocation.geogLocation
+        .latitude,
+      lon: resp.data.value.timeSeries[0].sourceInfo.geoLocation.geogLocation
+        .longitude,
+      values: stationSort(resp.data.value.timeSeries),
+    };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Oops, something went wrong");
+  }
 }
