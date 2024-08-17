@@ -13,7 +13,6 @@ const axiosMocked = jest.mocked(axios);
 
 describe("requestStationById", () => {
   afterEach(() => {
-    console.log("clearing mocks");
     jest.clearAllMocks();
   });
 

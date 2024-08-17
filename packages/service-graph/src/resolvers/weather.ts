@@ -6,6 +6,7 @@ export async function getWeatherResolver(
   _context: any,
 ) {
   const result = await requestWeatherByZip(input.zip);
+  console.log({ result });
   const weatherData = {
     temp: result.current.temp,
     wind: {
