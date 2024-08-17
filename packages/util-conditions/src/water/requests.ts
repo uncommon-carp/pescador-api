@@ -71,6 +71,6 @@ export async function requestStationsByBounding(
     });
     return siteReducer(response.data.value.timeSeries);
   } catch (err) {
-    throw new Error(`${err.message}`);
+    throw new InternalServerError("ce7ff2f7-1caf-44e6-9722-e426e2c43601");
   }
 }

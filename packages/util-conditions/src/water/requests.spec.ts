@@ -1,10 +1,14 @@
 import axios from "axios";
-import { requestStationById } from "./requests";
+import { requestStationById, requestStationsByBounding } from "./requests";
 import { InternalServerError } from "@pescador-api/util-errors";
 import { usgsSingleSiteMock } from "../__fixtures__";
 import { StationWithRange } from "../../../service-graph";
 
 jest.mock("axios");
+jest.mock("../helpers/", () => ({
+  ...jest.requireActual("../helpers"),
+  getZipCoords: jest.fn().mockResolvedValue({ lat: 10.12345, lng: 10.12345 }),
+}));
 const axiosMocked = jest.mocked(axios);
 
 describe("requestStationById", () => {
@@ -58,5 +62,15 @@ describe("requestStationById", () => {
       },
     });
     expect(result).toEqual(expectedResult);
+  });
+});
+
+describe("requestStationsByBounding", () => {
+  it("throws an error when the request to USGS fails", async () => {
+    axiosMocked.mockRejectedValueOnce(new Error());
+
+    await expect(requestStationsByBounding({ zip: "12345" })).rejects.toThrow(
+      InternalServerError,
+    );
   });
 });
