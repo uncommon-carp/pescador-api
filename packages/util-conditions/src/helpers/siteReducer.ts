@@ -38,5 +38,5 @@ export function siteReducer(data: TimeSerial[]): BulkStation {
     }
   });
 
-  return { __typename: "BulkStation", streams, lakes };
+  return { __typename: "BulkStation" as const, streams, lakes };
 }

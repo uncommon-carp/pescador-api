@@ -1,5 +1,5 @@
 import axios from "axios";
-import { StationWithRange } from "@pescador-api/service-graph";
+import { BulkStation, StationWithRange } from "@pescador-api/service-graph";
 import { InternalServerError } from "@pescador-api/util-errors";
 import stationSort from "../helpers/stationSort";
 import {
@@ -51,7 +51,7 @@ export async function requestStationById(
 
 export async function requestStationsByBounding(
   input: BulkStationQueryInput,
-): Promise<BulkStationQueryResult> {
+): Promise<BulkStation> {
   const { zip } = input;
   const { lat, lng } = await getZipCoords(zip);
   const { west, north, south, east } = getBoundingBox(lat, lng);
