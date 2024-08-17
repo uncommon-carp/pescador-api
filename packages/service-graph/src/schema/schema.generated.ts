@@ -12,23 +12,23 @@ type Query {
 interface Station {
   name: String!
   usgsId: String!
-  lat: Float
-  lon: Float
+  lat: String
+  lon: String
 }
 
 type StationWithRange implements Station {
   name: String!
   usgsId: String!
-  lat: Float
-  lon: Float
+  lat: String
+  lon: String
   values: ReportedValues
 }
 
 type SingleStation implements Station {
   name: String!
   usgsId: String!
-  lat: Float
-  lon: Float
+  lat: String
+  lon: String
   gageHt: Float
   flowRate: Float
 }
@@ -40,7 +40,7 @@ type BulkStation {
 
 type ReportedValues {
   flow: [DataFrame]
-  gage: [DataFrame]
+  gageHt: [DataFrame]
   height: [DataFrame]
   temp: [DataFrame]
 }

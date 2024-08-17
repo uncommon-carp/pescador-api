@@ -66,7 +66,7 @@ export type QueryWeatherArgs = {
 export type ReportedValues = {
   __typename: 'ReportedValues';
   flow?: Maybe<Array<Maybe<DataFrame>>>;
-  gage?: Maybe<Array<Maybe<DataFrame>>>;
+  gageHt?: Maybe<Array<Maybe<DataFrame>>>;
   height?: Maybe<Array<Maybe<DataFrame>>>;
   temp?: Maybe<Array<Maybe<DataFrame>>>;
 };
@@ -75,23 +75,23 @@ export type SingleStation = Station & {
   __typename: 'SingleStation';
   flowRate?: Maybe<Scalars['Float']['output']>;
   gageHt?: Maybe<Scalars['Float']['output']>;
-  lat?: Maybe<Scalars['Float']['output']>;
-  lon?: Maybe<Scalars['Float']['output']>;
+  lat?: Maybe<Scalars['String']['output']>;
+  lon?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   usgsId: Scalars['String']['output'];
 };
 
 export type Station = {
-  lat?: Maybe<Scalars['Float']['output']>;
-  lon?: Maybe<Scalars['Float']['output']>;
+  lat?: Maybe<Scalars['String']['output']>;
+  lon?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   usgsId: Scalars['String']['output'];
 };
 
 export type StationWithRange = Station & {
   __typename: 'StationWithRange';
-  lat?: Maybe<Scalars['Float']['output']>;
-  lon?: Maybe<Scalars['Float']['output']>;
+  lat?: Maybe<Scalars['String']['output']>;
+  lon?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   usgsId: Scalars['String']['output'];
   values?: Maybe<ReportedValues>;
@@ -256,7 +256,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type ReportedValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReportedValues'] = ResolversParentTypes['ReportedValues']> = {
   flow?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
-  gage?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
+  gageHt?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
   height?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
   temp?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataFrame']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -265,8 +265,8 @@ export type ReportedValuesResolvers<ContextType = any, ParentType extends Resolv
 export type SingleStationResolvers<ContextType = any, ParentType extends ResolversParentTypes['SingleStation'] = ResolversParentTypes['SingleStation']> = {
   flowRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   gageHt?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   usgsId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -274,15 +274,15 @@ export type SingleStationResolvers<ContextType = any, ParentType extends Resolve
 
 export type StationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Station'] = ResolversParentTypes['Station']> = {
   __resolveType: TypeResolveFn<'SingleStation' | 'StationWithRange', ParentType, ContextType>;
-  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   usgsId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type StationWithRangeResolvers<ContextType = any, ParentType extends ResolversParentTypes['StationWithRange'] = ResolversParentTypes['StationWithRange']> = {
-  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   usgsId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   values?: Resolver<Maybe<ResolversTypes['ReportedValues']>, ParentType, ContextType>;

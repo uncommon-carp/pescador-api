@@ -1,7 +1,5 @@
-import {
-  ReportedValues,
-  TimeSerial,
-} from "@pescador-api/interfaces-conditions";
+import { TimeSerial } from "@pescador-api/interfaces-conditions";
+import { ReportedValues } from "@pescador-api/service-graph";
 // Functionality for sorting and paring down USGS site requests time series
 // The data received for each type of site is different dependent on whether it is
 // is a stream or lake.
@@ -9,7 +7,8 @@ import {
 function streamSort(data: TimeSerial[]) {
   // This is the data format we want on the client
   const sorted: ReportedValues = {
-    gage: [],
+    __typename: "ReportedValues",
+    gageHt: [],
     flow: [],
   };
   // We want to limit the data arrays to 30ish points for 3 days of data
@@ -20,13 +19,14 @@ function streamSort(data: TimeSerial[]) {
     obj.values[0].value.forEach((value, i) => {
       if (i === 0 || i % interval === 0) {
         let newObject = {
+          __typename: "DataFrame" as const,
           timestamp: value.dateTime,
           value: Number(value.value),
         };
         if (obj.variable.variableCode[0].value === "00060") {
           sorted.flow!.push(newObject);
         } else if (obj.variable.variableCode[0].value === "00065") {
-          sorted.gage!.push(newObject);
+          sorted.gageHt!.push(newObject);
         }
       }
     });
@@ -37,15 +37,20 @@ function streamSort(data: TimeSerial[]) {
 
 function lakeSort(data: TimeSerial[]): ReportedValues {
   const sorted: ReportedValues = {
-    gage: [],
+    __typename: "ReportedValues",
+    gageHt: [],
   };
 
   let interval = Math.floor(data[0].values[0].value.length / 30);
 
   data[0].values[0].value.forEach((value, i) => {
     if (i === 0 || i % interval === 0) {
-      let newObject = { timestamp: value.dateTime, value: Number(value.value) };
-      sorted.gage!.push(newObject);
+      let newObject = {
+        __typename: "DataFrame" as const,
+        timestamp: value.dateTime,
+        value: Number(value.value),
+      };
+      sorted.gageHt!.push(newObject);
     }
   });
   return sorted;

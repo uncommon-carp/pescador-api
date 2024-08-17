@@ -1,15 +1,14 @@
 import axios from "axios";
+import { StationWithRange } from "@pescador-api/service-graph";
 import { InternalServerError } from "@pescador-api/util-errors";
 import stationSort from "../helpers/stationSort";
 import {
   BulkStationQueryInput,
   BulkStationQueryResult,
   StationQueryInput,
-  StationWithRange,
   UsgsResponse,
 } from "@pescador-api/interfaces-conditions";
-import { getZipCoords, getBoundingBox } from "../helpers";
-import { siteReducer } from "../helpers";
+import { getZipCoords, getBoundingBox, siteReducer } from "../helpers";
 
 const url = "http://waterservices.usgs.gov/nwis/iv";
 
@@ -32,6 +31,7 @@ export async function requestStationById(
     });
 
     return {
+      __typename: "StationWithRange",
       name: resp.data.value.timeSeries[0].sourceInfo.siteName,
       usgsId: resp.data.value.timeSeries[0].sourceInfo.siteCode[0].value,
       lat: String(
