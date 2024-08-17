@@ -13,15 +13,8 @@ const axiosMocked = jest.mocked(axios);
 
 describe("requestStationById", () => {
   afterEach(() => {
+    console.log("clearing mocks");
     jest.clearAllMocks();
-  });
-
-  it("throws an error when the request to USGS fails", async () => {
-    axiosMocked.mockRejectedValueOnce(new Error());
-
-    await expect(requestStationById({ id: "12345", range: 1 })).rejects.toThrow(
-      InternalServerError,
-    );
   });
 
   it("calls the USGS API correctly and returns formatted data", async () => {
@@ -64,16 +57,17 @@ describe("requestStationById", () => {
     });
     expect(result).toEqual(expectedResult);
   });
-});
 
-describe("requestStationsByBounding", () => {
   it("throws an error when the request to USGS fails", async () => {
     axiosMocked.mockRejectedValueOnce(new Error());
 
-    await expect(requestStationsByBounding({ zip: "12345" })).rejects.toThrow(
+    await expect(requestStationById({ id: "12345", range: 1 })).rejects.toThrow(
       InternalServerError,
     );
   });
+});
+
+describe("requestStationsByBounding", () => {
   it("calls the USGS API correctly and returns formatted data", async () => {
     const expectedResult: BulkStation = {
       __typename: "BulkStation",
@@ -114,5 +108,13 @@ describe("requestStationsByBounding", () => {
       },
     });
     expect(result).toEqual(expectedResult);
+  });
+
+  it("throws an error when the request to USGS fails", async () => {
+    axiosMocked.mockRejectedValueOnce(new Error());
+
+    await expect(requestStationsByBounding({ zip: "12345" })).rejects.toThrow(
+      InternalServerError,
+    );
   });
 });
