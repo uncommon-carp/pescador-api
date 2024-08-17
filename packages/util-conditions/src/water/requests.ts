@@ -45,7 +45,6 @@ export async function requestStationById(
       values: stationSort(resp.data.value.timeSeries),
     };
   } catch (err) {
-    console.log(err);
     throw new InternalServerError("41f675c9-da49-4986-b668-0d2b1e9b0c50");
   }
 }

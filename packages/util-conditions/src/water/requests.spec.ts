@@ -1,8 +1,8 @@
 import axios from "axios";
 import { requestStationById, requestStationsByBounding } from "./requests";
 import { InternalServerError } from "@pescador-api/util-errors";
-import { usgsSingleSiteMock } from "../__fixtures__";
-import { StationWithRange } from "../../../service-graph";
+import { usgsMultipleMock, usgsSingleSiteMock } from "../__fixtures__";
+import { StationWithRange, BulkStation } from "@pescador-api/service-graph";
 
 jest.mock("axios");
 jest.mock("../helpers/", () => ({
@@ -24,7 +24,7 @@ describe("requestStationById", () => {
     );
   });
 
-  it("makes a request to USGS with the correct parameters", async () => {
+  it("calls the USGS API correctly and returns formatted data", async () => {
     const id = "12345";
     const range = 2;
 
@@ -51,6 +51,7 @@ describe("requestStationById", () => {
 
     const result = await requestStationById({ id: "12345", range });
 
+    expect(axiosMocked).toHaveBeenCalledTimes(1);
     expect(axiosMocked).toHaveBeenCalledWith({
       method: "get",
       url: "http://waterservices.usgs.gov/nwis/iv",
@@ -72,5 +73,46 @@ describe("requestStationsByBounding", () => {
     await expect(requestStationsByBounding({ zip: "12345" })).rejects.toThrow(
       InternalServerError,
     );
+  });
+  it("calls the USGS API correctly and returns formatted data", async () => {
+    const expectedResult: BulkStation = {
+      __typename: "BulkStation",
+      streams: [
+        {
+          __typename: "SingleStation",
+          name: "River Station",
+          usgsId: "12345",
+          lat: "34.1234",
+          lon: "-118.1234",
+          flowRate: 15.7,
+        },
+      ],
+      lakes: [
+        {
+          __typename: "SingleStation",
+          name: "Lake Station",
+          usgsId: "67890",
+          lat: "34.1234",
+          lon: "-118.1234",
+          gageHt: 15.7,
+        },
+      ],
+    };
+    axiosMocked.mockResolvedValueOnce({ data: usgsMultipleMock });
+
+    const result = await requestStationsByBounding({ zip: "12345" });
+    expect(axiosMocked).toHaveBeenCalledTimes(1);
+    expect(axiosMocked).toHaveBeenCalledWith({
+      method: "get",
+      url: "http://waterservices.usgs.gov/nwis/iv",
+      params: {
+        format: "JSON",
+        siteStatus: "active",
+        bBox: "9.92345,9.92345,10.32345,10.32345",
+        siteType: "LK,ST",
+        parameterCd: "00060,00065",
+      },
+    });
+    expect(result).toEqual(expectedResult);
   });
 });

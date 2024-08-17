@@ -35,7 +35,7 @@ export function siteReducer(data: TimeSerial[]) {
       if (existingStream) {
         existingStream[key] = Number(gageHtOrFlowRate);
       } else {
-        streams.push({ ...siteData, [key]: gageHtOrFlowRate });
+        streams.push({ ...siteData, [key]: Number(gageHtOrFlowRate) });
       }
     }
   });
