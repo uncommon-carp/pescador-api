@@ -7,16 +7,5 @@ export async function getWeatherResolver(
 ) {
   const result = await requestWeatherByZip(input.zip);
   console.log({ result });
-  const weatherData = {
-    temp: result.current.temp,
-    wind: {
-      speed: result.current.wind_speed,
-      direction: result.current.wind_deg,
-      gust: result.current.wind_gust,
-    },
-    pressure: result.current.pressure,
-    humidity: result.current.humidity,
-    clouds: "mostly cloudy",
-  };
-  return weatherData;
+  return result;
 }
