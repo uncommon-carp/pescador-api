@@ -2,15 +2,12 @@
 // after the user searches for all sites within a bounding box. It's aim is to normalize and simplify the data
 // the client receives.
 
-import {
-  LakeStation,
-  StreamStation,
-  TimeSerial,
-} from "@pescador-api/interfaces-conditions";
+import { TimeSerial } from "@pescador-api/interfaces-conditions";
+import { BulkStation, SingleStation } from "@pescador-api/service-graph";
 
-export function siteReducer(data: TimeSerial[]) {
-  const lakes: LakeStation[] = [];
-  const streams: StreamStation[] = [];
+export function siteReducer(data: TimeSerial[]): BulkStation {
+  const lakes: SingleStation[] = [];
+  const streams: SingleStation[] = [];
 
   data.forEach((site) => {
     const { siteName, siteCode, geoLocation } = site.sourceInfo;
@@ -19,6 +16,7 @@ export function siteReducer(data: TimeSerial[]) {
     const usgsId = siteCode[0].value;
 
     const siteData = {
+      __typename: "SingleStation" as const,
       name: siteName,
       usgsId,
       lat: String(latitude),
@@ -35,10 +33,10 @@ export function siteReducer(data: TimeSerial[]) {
       if (existingStream) {
         existingStream[key] = Number(gageHtOrFlowRate);
       } else {
-        streams.push({ ...siteData, [key]: gageHtOrFlowRate });
+        streams.push({ ...siteData, [key]: Number(gageHtOrFlowRate) });
       }
     }
   });
 
-  return { streams, lakes };
+  return { __typename: "BulkStation" as const, streams, lakes };
 }

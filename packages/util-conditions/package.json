@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.3",
+    "@pescador-api/service-graph": "^1.0.0",
     "@pescador-api/util-errors": "^1.0.0"
   },
   "devDependencies": {
