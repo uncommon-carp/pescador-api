@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getZipCoords } from "../helpers/getZipCoords";
+import { getZipCoords } from "../helpers";
 import { InternalServerError } from "@pescador-api/util-errors";
 import { CurrentWeather } from "@pescador-api/service-graph";
 import { OpenWeatherResponse } from "@pescador-api/interfaces-conditions";
@@ -7,12 +7,7 @@ import { OpenWeatherResponse } from "@pescador-api/interfaces-conditions";
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 
 export async function requestWeatherByZip(zip: string) {
-  const result = await getZipCoords(zip);
-  if (typeof result === "string") {
-    return result;
-  }
-  console.log({ coordsResult: result });
-  const { lat, lng } = result;
+  const { lat, lng } = await getZipCoords(zip);
   const params = {
     lat,
     lon: lng,

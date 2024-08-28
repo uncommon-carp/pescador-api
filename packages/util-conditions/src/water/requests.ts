@@ -4,7 +4,6 @@ import { InternalServerError } from "@pescador-api/util-errors";
 import stationSort from "../helpers/stationSort";
 import {
   BulkStationQueryInput,
-  BulkStationQueryResult,
   StationQueryInput,
   UsgsResponse,
 } from "@pescador-api/interfaces-conditions";

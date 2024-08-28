@@ -1,14 +1,16 @@
 import axios from "axios";
-import { requestWeatherByZip } from "./requests";
-import { openWeatherResponse } from "../__fixtures__/openWeatherMock";
-import { getZipCoords } from "../helpers";
 import { CurrentWeather } from "@pescador-api/service-graph";
+import { requestWeatherByZip } from "./requests";
+import { openWeatherResponse } from "../__fixtures__";
 
 jest.mock("axios");
-jest.mock("../helpers");
+
+jest.mock("../helpers/", () => ({
+  ...jest.requireActual("../helpers"),
+  getZipCoords: jest.fn().mockResolvedValue({ lat: 10.12345, lng: 10.12345 }),
+}));
 
 const axiosMocked = jest.mocked(axios);
-const getZipCoordsMocked = jest.mocked(getZipCoords);
 
 describe("requestWeatherByZip", () => {
   afterEach(() => {
@@ -27,12 +29,12 @@ describe("requestWeatherByZip", () => {
       },
       humidity: 80.2,
       pressure: 1050,
-      clouds: "Mostly cloudy",
+      clouds: "mostly cloudy",
     };
-    getZipCoordsMocked.mockResolvedValueOnce({ lat: 10.12345, lng: 10.12345 });
-    axiosMocked.mockResolvedValueOnce(openWeatherResponse);
 
-    const result = await requestWeatherByZip("12345");
+    axiosMocked.mockResolvedValueOnce({ data: openWeatherResponse });
+
+    const result = await requestWeatherByZip("01118");
 
     expect(result).toEqual(expectedResult);
   });
