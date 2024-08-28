@@ -5,7 +5,7 @@
 // take cosine of radians and multiply by 69.172
 // gives number of miles to one degree of longitude at given latitude
 
-// USGS takes coords in order of west, north, south, east
+// USGS takes coords in order of west, south, east, north
 
 function decimalTrim(num: number) {
   if (num.toString().split(".")[1].length > 7) {
