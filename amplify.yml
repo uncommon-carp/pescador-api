@@ -1,0 +1,27 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - cd packages/service-ui
+            - npm ci
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: packages/service-ui/.next
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - node_modules/**/*
+          - packages/service-ui/node_modules/**/*
+      customHeaders:
+      ignore:
+        - packages/service-graph/** # Ignore other services
+        - packages/util-errors/** # Ignore utility packages
+        - packages/util-conditions/** # Ignore utility packages
+        - packages/interfaces-graph/** # Ignore utility packages
+        - packages/interfaces-conditions/** # Ignore utility packages
+

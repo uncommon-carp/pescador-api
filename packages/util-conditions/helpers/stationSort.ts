@@ -1,7 +1,4 @@
-import {
-  ReportedValues,
-  TimeSerial,
-} from "@pescador-api/interfaces-conditions";
+import { ReportedValues, TimeSerial } from "@pescador/interfaces-conditions";
 // Functionality for sorting and paring down USGS site requests time series
 // The data received for each type of site is different dependent on whether it is
 // is a stream or lake.

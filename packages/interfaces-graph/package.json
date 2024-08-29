@@ -1,5 +1,5 @@
 {
-  "name": "@pescador-api/interfaces-graph",
+  "name": "@pescador/interfaces-graph",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

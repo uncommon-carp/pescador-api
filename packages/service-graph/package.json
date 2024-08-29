@@ -1,5 +1,5 @@
 {
-  "name": "@pescador-api/service-graph",
+  "name": "@pescador/service-graph",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -20,9 +20,9 @@
     "@graphql-codegen/typescript-operations": "^4.2.3",
     "@graphql-codegen/typescript-resolvers": "^4.2.1",
     "@graphql-tools/schema": "^10.0.5",
-    "@pescador-api/interfaces-conditions": "^1.0.0",
-    "@pescador-api/interfaces-graph": "^1.0.0",
-    "@pescador-api/util-conditions": "^1.0.0",
+    "@pescador/interfaces-conditions": "^1.0.0",
+    "@pescador/interfaces-graph": "^1.0.0",
+    "@pescador/util-conditions": "^1.0.0",
     "graphql": "^16.7.1",
     "graphql-tag": "^2.12.6"
   }
