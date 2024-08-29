@@ -1,5 +1,5 @@
 import axios from "axios";
-import { InternalServerError } from "@pescador-api/util-errors";
+import { InternalServerError } from "@pescador/util-errors";
 import stationSort from "../helpers/stationSort";
 import {
   BulkStationQueryInput,
@@ -7,7 +7,7 @@ import {
   StationQueryInput,
   StationWithRange,
   UsgsResponse,
-} from "@pescador-api/interfaces-conditions";
+} from "@pescador/interfaces-conditions";
 import { getZipCoords, getBoundingBox } from "../helpers";
 import { siteReducer } from "../helpers";
 

@@ -1,4 +1,4 @@
-import { requestWeatherByZip } from "@pescador-api/util-conditions";
+import { requestWeatherByZip } from "@pescador/util-conditions";
 
 export async function getWeatherResolver(
   _parent: any,

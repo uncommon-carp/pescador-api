@@ -6,7 +6,7 @@ import {
   LakeStation,
   StreamStation,
   TimeSerial,
-} from "@pescador-api/interfaces-conditions";
+} from "@pescador/interfaces-conditions";
 
 export function siteReducer(data: TimeSerial[]) {
   const lakes: LakeStation[] = [];

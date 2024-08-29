@@ -1,10 +1,10 @@
 {
-  "name": "pescador-api",
+  "name": "pescador",
   "version": "1.0.0",
-  "description": "Pescador app server",
+  "description": "Pescador weather and water condition web app",
   "main": "index.js",
   "scripts": {
-    "deploy": "npm run -w @pescador-api/service-graph buildAndDeploy",
+    "deploy": "npm run -w @pescador/service-graph buildAndDeploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cory Sorel",

@@ -3,11 +3,11 @@ import {
   BulkStationQueryResult,
   Station,
   StationQueryInput,
-} from "@pescador-api/interfaces-conditions";
+} from "@pescador/interfaces-conditions";
 import {
   requestStationById,
   requestStationsByBounding,
-} from "@pescador-api/util-conditions";
+} from "@pescador/util-conditions";
 
 export async function getStationResolver(
   _parent: any,
