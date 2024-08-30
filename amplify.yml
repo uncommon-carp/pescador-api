@@ -5,6 +5,7 @@ applications:
       phases:
         preBuild:
           commands:
+            - pwd
             - cd packages/service-ui
             - npm ci
         build:
