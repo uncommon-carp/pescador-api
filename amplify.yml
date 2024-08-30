@@ -1,6 +1,6 @@
 version: 1
 applications:
-  - appRoot: "packages/service-ui"
+  - appRoot: packages/service-ui
   - frontend:
       phases:
         preBuild:
